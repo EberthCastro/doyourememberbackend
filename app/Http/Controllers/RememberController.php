@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Remember;
 use Illuminate\Http\Request;
 
+
+
 class RememberController extends Controller
 {
     
@@ -24,8 +26,8 @@ class RememberController extends Controller
         ]);
 
         Remember::create([
-            'title' => $request->content,
-            'description' => $request->content,
+            'title' => $request->title,
+            'description' => $request->description,
             // 'image' => $request->type,            
         ]);
 
@@ -38,7 +40,7 @@ class RememberController extends Controller
     public function show($id)
     {
         $Remember=Remember::findOrFail($id);
-        return response($Remember,201);
+        return response($Remember,200);
     }
 
     

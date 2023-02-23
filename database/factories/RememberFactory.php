@@ -18,7 +18,7 @@ class RememberFactory extends Factory
     {
         return [
             'title' => 'Montaña',
-            'description' => 'Lo importante de tener un sueño, un recuerdo es darle sentido a tu vida.',
+            'description' => 'Lo importante de tener un recuerdo es volver a vivirlo y disfrutar las emociones otra vez.',
             'image'=> 'efbgfgrfbref',
             
             
