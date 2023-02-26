@@ -22,19 +22,39 @@ class RememberController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',            
-            // 'image' => 'required',         
+            'image' => 'required'
+            // 'category' => 'required', 
+            // 'price' => 'required'       
         ]);
 
-        Remember::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            // 'image' => $request->type,            
-        ]);
+        // Subida y almacenamiento de la imagen
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imagePath = 'images/remembers/';
+            $image->move(public_path($imagePath), $imageName);
 
-        return response([
-            'message' => 'Remember created successfully'
-        ],201);
-    }
+        // Remember::create([
+        //     'title' => $request->title,
+        //     'description' => $request->description,
+        //     // 'image' => $request->type,            
+        // ]);
+
+        // Creación y almacenamiento del libro
+    $remember = new Remember();
+    $remember->title = $request->title;
+    $remember->description = $request->description;
+    // $remember->user_id = auth()->id();
+    $remember->image = $imagePath . $imageName;
+    // $remember->category = $request->category;
+    // $remember->price = $request->price;
+    $remember->save();
+
+    return response()->json($remember, 201);
+
+        // return response([
+        //     'message' => 'Remember created successfully'
+        // ],201);
+    }   
 
     
     public function show($id)
@@ -50,7 +70,7 @@ class RememberController extends Controller
         $Remember->update([
             'title' => $request->content,
             'description' => $request->content,
-            // 'image' => $request->type,   
+            'image' => $request->type,   
         ]);
 
         return response([
